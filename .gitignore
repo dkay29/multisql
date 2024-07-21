@@ -3,5 +3,6 @@
 /*.xml
 *.iml
 target/
+/target/
 .idea/
 .swp
