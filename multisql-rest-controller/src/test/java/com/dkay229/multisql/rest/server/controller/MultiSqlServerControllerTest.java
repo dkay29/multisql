@@ -1,5 +1,6 @@
 package com.dkay229.multisql.rest.server.controller;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -20,6 +21,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class MultiSqlServerControllerTest {
     @Autowired
     private MockMvc mockMvc;
+    private String jwtToken;
+    @BeforeEach
+    public void setUp() {
+        // Set up a valid JWT token. In a real-world scenario, you might need to generate this token using your
+        // authentication service.
+        jwtToken = "your-jwt-token";
+    }
     @Test
     @WithMockUser(username = "user", roles = {"USER"})
     public void testPing() throws Exception {
@@ -38,8 +46,9 @@ public class MultiSqlServerControllerTest {
     @WithMockUser(username = "user", roles = {"USER"})
     public void testExecuteSql() throws Exception {
         // Perform POST request
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/executeSql")
-                        .contentType(MediaType.TEXT_PLAIN)
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/executeSql2")
+                        .header("Authorization", "Bearer " + jwtToken)
+                        .contentType(MediaType.TEXT_PLAIN_VALUE)
                         .content("select * from table1;"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().string("{\"tableNames\":[\"tab1\",\"tab2\"]}"));
