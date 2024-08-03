@@ -6,6 +6,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -20,18 +21,21 @@ public class MultiSqlServerControllerTest {
     @Autowired
     private MockMvc mockMvc;
     @Test
+    @WithMockUser(username = "user", roles = {"USER"})
     public void testPing() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/api/ping"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().string("Pong!"));
     }
     @Test
+    @WithMockUser(username = "user", roles = {"USER"})
     public void testListTables() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/api/listTables"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().string("{\"tableNames\":[\"tab1\",\"tab2\"]}"));
     }
     @Test
+    @WithMockUser(username = "user", roles = {"USER"})
     public void testExecuteSql() throws Exception {
         // Perform POST request
         mockMvc.perform(MockMvcRequestBuilders.post("/api/executeSql")
