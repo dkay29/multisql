@@ -1,4 +1,4 @@
-package com.dkay229.multisql.rest.server.entity;
+package com.dkay229.multisql.rest.server.service;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

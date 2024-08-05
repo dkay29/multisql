@@ -1,6 +1,5 @@
 package com.dkay229.multisql.rest.server.service;
 
-import com.dkay229.multisql.rest.server.entity.MultiUserDetails;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

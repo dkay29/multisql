@@ -1,8 +1,10 @@
 package com.dkay229.multisql.rest.server.entity;
 
 
-import java.util.Objects;
+import jakarta.persistence.Entity;
 
+import java.util.Objects;
+@Entity
 public class User {
 
     private Long id;
