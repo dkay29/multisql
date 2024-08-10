@@ -14,6 +14,11 @@
     <name>multisql</name>
 
     <dependencies>
+        <dependency>
+            <groupId>org.dkay229</groupId>
+            <artifactId>multijdbc</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
         <!-- security and sesion management -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

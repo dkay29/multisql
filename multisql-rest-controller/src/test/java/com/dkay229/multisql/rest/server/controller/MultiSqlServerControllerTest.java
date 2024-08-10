@@ -46,7 +46,7 @@ public class MultiSqlServerControllerTest {
     @WithMockUser(username = "user", roles = {"USER"})
     public void testExecuteSql() throws Exception {
         // Perform POST request
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/executeSql2")
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/executeSql")
                         .header("Authorization", "Bearer " + jwtToken)
                         .contentType(MediaType.TEXT_PLAIN_VALUE)
                         .content("select * from table1;"))

@@ -1,5 +1,7 @@
 package com.dkay229.multisql.rest.server.controller;
 
+import com.dkay229.multisql.rest.server.entity.ClientConnection;
+import com.dkay229.multisql.rest.server.entity.MultiUser;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +31,7 @@ public class AuthController {
     private final SecretKey key = Keys.hmacShaKeyFor("your_secret_key_your_secret_key_your_secret_key_your".getBytes());
 
     @PostMapping("/login")
-    public Map<String, String> login(@RequestBody Map<String, String> loginRequest) throws AuthenticationException {
+    public ClientConnection login(@RequestBody Map<String, String> loginRequest) throws AuthenticationException {
         String username = loginRequest.get("username");
         String password = loginRequest.get("password");
 
@@ -37,20 +39,18 @@ public class AuthController {
                 new UsernamePasswordAuthenticationToken(username, password)
         );
 
-        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+        MultiUser multiUser = new MultiUser();
+        multiUser.setUsername(username);
 
         String jwtToken = Jwts.builder()
-                .setSubject(userDetails.getUsername())
-                .claim("authorities", userDetails.getAuthorities())
+                .setSubject(multiUser.getUsername())
+                .claim("authorities", multiUser.getAuthorities())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + 864000000)) // 10 days
                 .signWith(key)
                 .compact();
 
-        Map<String, String> response = new HashMap<>();
-        response.put("token", jwtToken);
-
-        return response;
+        return new ClientConnection(multiUser,jwtToken);
     }
 }
 
