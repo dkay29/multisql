@@ -1,6 +1,6 @@
 # Default ignored files
 /shelf/
-/*.xml
+#/*.xml
 **/*.iml
 target/
 **/target/
